@@ -173,7 +173,7 @@ app.post('/send',(req, res)=>{
     User.find().then((users)=>{
         users.map((user)=>{
             string = user.phonenumber
-            phnumber = '91'+string
+            phnumber = string
             console.log(phnumber)
 
             smsobj = [{
@@ -181,7 +181,7 @@ app.post('/send',(req, res)=>{
                 "to" : [phnumber]
             }]
 
-            args = {sender: 'Incandescence', sms: smsobj}
+            args = {sender: 'incand', sms: smsobj}
 
             msg91SMS.send(args).then((res)=>{
                 console.log(res)
