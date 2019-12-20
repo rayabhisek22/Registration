@@ -18,7 +18,7 @@ const msg91sms = require('msg91-lib').msg91SMS;
 const msg91SMS = new msg91sms('own auth key', 'incand', 4, 91);
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('own_key');
+sgMail.setApiKey('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');
 
 var app = express()
 
@@ -28,6 +28,18 @@ app.use(express.static('stylesheet'))
 
 
 app.use(bodyParser.urlencoded({ extended: true }))
+
+//Seeding
+
+// var seedDB= function(){
+//     User.remove({},function(err){
+//         if(err){
+//             console.log(err);
+//         }
+//     });
+// }
+// seedDB();
+
 
 // start of get request
 
@@ -52,7 +64,8 @@ app.get('/payment', (req, res) => {
 })
 
 app.get('/success', (req, res) => {
-    res.render('success', { name: localStorage.getItem("name")})
+    var name=localStorage.getItem("name")||req.query.name;
+    res.render('success', { name:name})
     console.log(localStorage.getItem("name"))
     localStorage.clear()
 })
