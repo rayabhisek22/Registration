@@ -47,21 +47,16 @@
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
         <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
-        var doc = new jsPDF();
-        var specialElementHandlers = {
-            '#editor': function (element, renderer) {
-                return true;
-            }
-        };
-
         $('#cmd').click(function () {
-            doc.fromHTML($('#pass').html(), 15, 15, {
-                'width': 500,
-                'elementHandlers': specialElementHandlers
+            document.querySelector('#pass').classList.add("btn-grad");
+            html2canvas(document.querySelector('#pass'),{scale: 2}).then(canvas => {
+                let pdf = new jsPDF('l','mm',[620,240]);
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 220, 85);
+                pdf.save('pass.pdf');
             });
-            doc.save('pass.pdf');
+            document.querySelector('#pass').classList.remove("btn-grad");
         });
 
     </script>
