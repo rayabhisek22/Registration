@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // start of get request
 
 app.get('/register', (req, res) => {
-    res.render('register')
+    res.render('register',{validate:1})
 })
 
 app.get('/adminlogin', (req, res) => {
@@ -61,7 +61,26 @@ app.get('/admin', (req, res) => {
 //End of get request
 
 //Start of post request
-app.post('/register', (req, res) => {
+//to valididate email id
+function fun1(req,res,next){
+    var email = req.body.email
+    var pos = email.indexOf('@')
+
+    if(pos == -1)
+    {
+        res.render('register',{validate:0})
+    }
+    else{
+        if(email.slice(pos+1,email.length)=="gmail.com" || email.slice(pos+1,email.length)=="yahoo.com")
+        {
+            next()
+        }else{
+            res.render('register',{validate:0})
+        }
+    }
+}
+
+app.post('/register',fun1, (req, res) => {
     college_id = req.body.college
     if (college_id == "1") {
         phone = req.body.number
