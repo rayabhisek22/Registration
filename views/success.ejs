@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="success.css" type="text/css">
+    <title style="font-family:'Courier New', Courier, monospace">Incandescence</title>
+    <link rel="shortcut icon" href="Logo.png">
+    </link>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row" id="pass">
+            <div class="col-lg-10 col-xl-9 mx-auto">
+                <div class="card card-signin flex-row my-5">
+                    <div class="card-img-left d-none d-md-flex">
+                        <!-- Background image for card set in CSS! -->
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">
+                            Welcome to those who believe in the power of music and who would like to join us in our
+                            exploration of happiness.
+                        </h5>
+                        <h6 class="text-center"> Mr/Mrs. <%=name%> , get ready for the upcoming madness in
+                            the biggest carnival of the North-East from 12-14 February, 2019. </h6>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="editor"></div>
+        <div class="mx-auto col-lg-4 col-xl-3">
+            <button class="btn btn-lg btn-success btn-block text-uppercase" style="width:fit-content;"
+                id="cmd">Download</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+
+    <script>
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+
+        $('#cmd').click(function () {
+            doc.fromHTML($('#pass').html(), 15, 15, {
+                'width': 500,
+                'elementHandlers': specialElementHandlers
+            });
+            doc.save('pass.pdf');
+        });
+
+    </script>
+
+</body>
+
+</html>
