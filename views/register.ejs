@@ -16,6 +16,11 @@
 </head>
 
 <body>
+    <% if(validate==0){ %>
+        <script type="text/javascript">
+            alert("Email ID not valid")
+        </script>
+    <% } %>
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-xl-9 mx-auto">
@@ -39,7 +44,9 @@
                             <span>C</span>
                             <span>E</span>
                         </h5>
+
                         <form class="form-signin" method="POST" action="/register">
+                            
                             <div class="form-label-group">
                                 <input type="text" name="name" class="form-control" placeholder="Name" required
                                     autofocus>
@@ -49,13 +56,13 @@
                             <div class="form-label-group">
                                 <input type="email" name="email" class="form-control" placeholder="Email address"
                                     required>
-                                <label>Email address</label>
+                                <label>Email address </label>
                             </div>
 
                             <div class="form-label-group">
                                 <input type="text" name="number" class="form-control" placeholder="Phone Number"
                                     required>
-                                <label>Phone Number</label>
+                                <label>Phone Number (without using +91 or 0)</label>
                             </div>
 
                             <select class="custom-select" name="college">
