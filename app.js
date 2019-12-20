@@ -18,7 +18,7 @@ const msg91sms = require('msg91-lib').msg91SMS;
 const msg91SMS = new msg91sms('own auth key', 'incand', 4, 91);
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
+sgMail.setApiKey('own_key');
 
 var app = express()
 
