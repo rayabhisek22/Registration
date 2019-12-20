@@ -17,6 +17,9 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 const msg91sms = require('msg91-lib').msg91SMS;
 const msg91SMS = new msg91sms('own auth key', 'incand', 4, 91);
 
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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');
+
 var app = express()
 
 app.set('view engine', 'ejs')
@@ -175,6 +178,15 @@ app.post('/send',(req, res)=>{
             string = user.phonenumber
             phnumber = string
             console.log(phnumber)
+            const msg = {
+                to: 'abinashdtt45@gmail.com',
+                from: 'incand@gmail.com',
+                subject: 'Incandescence News Update',
+                text: message,
+                
+              };
+              msg.to = user.email
+              sgMail.send(msg);
 
             smsobj = [{
                 "message" : message,
