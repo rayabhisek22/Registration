@@ -17,6 +17,9 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 const msg91sms = require('msg91-lib').msg91SMS;
 const msg91SMS = new msg91sms('own auth key', 'incand', 4, 91);
 
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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');
+
 var app = express()
 
 app.set('view engine', 'ejs')
@@ -25,6 +28,18 @@ app.use(express.static('stylesheet'))
 
 
 app.use(bodyParser.urlencoded({ extended: true }))
+
+//Seeding
+
+// var seedDB= function(){
+//     User.remove({},function(err){
+//         if(err){
+//             console.log(err);
+//         }
+//     });
+// }
+// seedDB();
+
 
 // start of get request
 
@@ -49,7 +64,8 @@ app.get('/payment', (req, res) => {
 })
 
 app.get('/success', (req, res) => {
-    res.render('success', { name: localStorage.getItem("name")})
+    var name=localStorage.getItem("name")||req.query.name;
+    res.render('success', { name:name})
     console.log(localStorage.getItem("name"))
     localStorage.clear()
 })
@@ -173,15 +189,24 @@ app.post('/send',(req, res)=>{
     User.find().then((users)=>{
         users.map((user)=>{
             string = user.phonenumber
-            phnumber = '91'+string
+            phnumber = string
             console.log(phnumber)
+            const msg = {
+                to: 'abinashdtt45@gmail.com',
+                from: 'incand@gmail.com',
+                subject: 'Incandescence News Update',
+                text: message,
+                
+              };
+              msg.to = user.email
+              sgMail.send(msg);
 
             smsobj = [{
                 "message" : message,
                 "to" : [phnumber]
             }]
 
-            args = {sender: 'Incandescence', sms: smsobj}
+            args = {sender: 'incand', sms: smsobj}
 
             msg91SMS.send(args).then((res)=>{
                 console.log(res)
