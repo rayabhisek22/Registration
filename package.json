@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.8.1",
